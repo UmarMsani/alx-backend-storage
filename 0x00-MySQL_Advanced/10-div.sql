@@ -1,18 +1,11 @@
 -- Create function SafeDiv
 DELIMITER //
 
+DROP FUNCTION IF EXISTS SafeDiv;
 CREATE FUNCTION SafeDiv(a INT, b INT)
-RETURNS INT
+RETURNS FLOAT DETERMINISTIC
 BEGIN
-    DECLARE result INT;
-    
-    IF b = 0 THEN
-        SET result = 0;
-    ELSE
-        SET result = a / b;
-    END IF;
-    
-    RETURN result;
+	RETURN (IF (b = 0, 0, a / b));
 END //
 
 DELIMITER ;
